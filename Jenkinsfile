@@ -5,7 +5,7 @@ pipeline {
     stage('Build image') {
       steps {
         echo 'Building image'
-        sh 'docker build -t testImage1 .'
+        sh 'docker build -t test-image1 .'
       }
     }
     stage('Test image') {
@@ -15,7 +15,7 @@ pipeline {
           snykInstallation: 'snyk1',
           snykTokenId: 'snyk'
         ) {
-          sh 'snyk container test testImage1'
+          sh 'snyk container test test-image1'
         }
       }
     }
