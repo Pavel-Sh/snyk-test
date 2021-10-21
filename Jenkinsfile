@@ -14,7 +14,7 @@ pipeline {
         snykSecurity(
           snykInstallation: 'snyk1',
           snykTokenId: 'snyk',
-          additionalArguments : '--container',
+          additionalArguments : '--container test-image1',
           ) 
         sh 'snyk container test test-image1'
       }
