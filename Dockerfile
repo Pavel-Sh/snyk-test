@@ -1,0 +1,1 @@
+FROM adoptopenjdk/openjdk8:jre8u292-b10-alpine
