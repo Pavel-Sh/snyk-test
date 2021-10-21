@@ -16,7 +16,6 @@ pipeline {
           snykTokenId: 'snyk',
           additionalArguments : '--container test-image1',
           ) 
-        sh 'snyk container test test-image1'
       }
     }
   }
