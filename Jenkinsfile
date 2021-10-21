@@ -13,9 +13,10 @@ pipeline {
         echo 'Testing image'
         snykSecurity(
           snykInstallation: 'snyk1',
-          snykTokenId: 'snyk',
+          snykTokenId: 'snyk'
+        ) {
           sh 'snyk container test testImage1'
-        )
+        }
       }
     }
   }
