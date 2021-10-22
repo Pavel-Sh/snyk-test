@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        SNYK_TOKEN = credentials('Snyk')
+    }
+
+    stages {
+
+        stage('Download Snyk CLI') {
+            steps {
+                sh '''
+                    latest_version=$(curl -Is "https://github.com/snyk/snyk/releases/latest" | grep "^location" | sed s#.*tag/##g | tr -d "\r")
+                    echo "Latest Snyk CLI Version: ${latest_version}"
+                    snyk_cli_dl_linux="https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux"
+                    echo "Download URL: ${snyk_cli_dl_linux}"
+                    curl -Lo ./snyk "${snyk_cli_dl_linux}"
+                    chmod +x snyk
+                    ls -la
+                    ./snyk -v
+                '''
+            }
+        }
+
+        stage('Build images for test') {
+            steps {
+                echo 'Building image'
+                sh 'cd /containers && docker build --target pjava8 -t pjava8 .'
+                sh 'cd /containers && docker build --target pjava11 -t pjava11 .'
+            }
+        }
+        
+        stage('Test pjava8 image') {
+            steps {
+                sh './snyk container test pjava8'
+            }
+        }
+
+        stage('Test pjava11 image') {
+            steps {
+                sh './snyk container test pjava11'
+            }
+        }
+    }
+}
