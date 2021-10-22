@@ -27,8 +27,8 @@ pipeline {
                 script {
                     echo 'Building image'
                     def props = readProperties  file:'containers/tags.properties'
-                    sh 'cd containers && docker build --target pjava8 -t pjava8-${props['tag8']} .'
-                    sh 'cd containers && docker build --target pjava11 -t pjava11-${props['tag11']} .'
+                    sh 'cd containers && docker build --target pjava8 -t pjava8-${props[\'tag8\']} .'
+                    sh 'cd containers && docker build --target pjava11 -t pjava11-${props[\'tag11\']} .'
                 }
             }
         }
