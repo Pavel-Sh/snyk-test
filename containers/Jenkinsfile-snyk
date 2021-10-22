@@ -46,4 +46,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            sh 'docker image rm pjava8'
+            sh 'docker image rm pjava11'
+        }
+    }
 }
