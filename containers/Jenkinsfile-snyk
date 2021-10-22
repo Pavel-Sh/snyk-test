@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building image'
-                    def props = readProperties  file:'containers/tags.properties'
+                    def props = readProperties file:'containers/tags.properties'
                     def tag8 = props['tag8']
                     def tag11 = props['tag11']
                     sh 'echo \$tag8'
