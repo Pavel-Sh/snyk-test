@@ -30,26 +30,19 @@ pipeline {
             }
         }
         
-        parallel {
-            stage('Test pjava8 image') {
-                steps {
-                    sh './snyk container test pjava8'
+        stage('Scan images') {
+            parallel {
+                stage('Test pjava8 image') {
+                    steps {
+                        sh './snyk container test pjava8'
+                    }
                 }
-            }
 
-            stage('Test pjava11 image') {
-                steps {
-                    sh './snyk container test pjava11'
+                stage('Test pjava11 image') {
+                    steps {
+                        sh './snyk container test pjava11'
+                    }
                 }
-            }
-        }
-
-        post {
-            failure {
-                echo "Vulnerabilties were detected."
-            }
-            success {
-                echo "No vulnereabilities discovered."
             }
         }
     }
