@@ -31,7 +31,6 @@ pipeline {
         }
         
         parallel {
-
             stage('Test pjava8 image') {
                 steps {
                     sh './snyk container test pjava8'
@@ -46,12 +45,12 @@ pipeline {
         }
 
         post {
-                failure {
-                    echo "Vulnerabilties were detected."
-                }
-                success {
-                    echo "No vulnereabilities discovered."
-                }
+            failure {
+                echo "Vulnerabilties were detected."
+            }
+            success {
+                echo "No vulnereabilities discovered."
+            }
         }
     }
 }
